@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import './App.css';
+import DisplayData from "./DisplayData";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const client = new ApolloClient({
+        cache: new InMemoryCache(),
+        uri: 'http://localhost:4000/graphql'
+    });
+
+    return (
+        <ApolloProvider client={client}>
+            <div className="App">
+                <DisplayData/>
+            </div>
+        </ApolloProvider>
+    );
 }
 
 export default App;
